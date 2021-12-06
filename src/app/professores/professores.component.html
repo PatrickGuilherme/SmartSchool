@@ -1,51 +1,60 @@
-<!--PROFESSOR ESPECIFICO SELECIONADO-->
-<div *ngIf="professorSelecionado">
-     <div class="row">
-        <div class="mr-auto">
-            <app-titulo [titulo] ="'Professor: ' + professorSelecionado.nome"></app-titulo>
+
+<div class="row">
+    <!--PROFESSOR ESPECIFICO SELECIONADO-->
+    <div class="col-sm-6" *ngIf="professorSelecionado">
+        <div class="row">
+            <div class="mr-auto">
+                <app-titulo [titulo] ="'Código: ' + professorSelecionado.id"></app-titulo>
+            </div>
+            <div class="mt-1">
+                <button class="btn btn-outline-danger" (click) = "Voltar()">
+                    Fechar
+                </button>
+            </div>
         </div>
-        <div class="mt-1">
-            <button class="btn btn-warning" (click) = "Voltar()">
-                Voltar
-            </button>
-        </div>
+        
+        <!--FORMULARIO DE EDIÇÃO-->
+        <form>
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Nome</label>
+                    <input type="text" class="form-control" value="{{professorSelecionado.nome}}" placeholder="Insira seu nome">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Disciplina</label>
+                    <input type="text" class="form-control" value="{{professorSelecionado.disciplina}}"  placeholder="Insira seu sobrenome">
+                </div>
+            </div>
+            <div class="form-group">
+                <hr>
+                <button class="btn btn-success">
+                    Salvar
+                </button>
+            </div>
+        </form>
     </div>
-
-    <!--FORMULARIO DE EDIÇÃO-->
-    <form>
-        <div class="form-group">
-            <div class="mb-3">
-                <label for="formGroupExampleInput" class="form-label">Nome</label>
-                <input type="text" class="form-control" value="{{professorSelecionado.nome}}" placeholder="Insira seu nome">
-            </div>
-            <div class="mb-3">
-                <label for="formGroupExampleInput2" class="form-label">Disciplina</label>
-                <input type="text" class="form-control" value="{{professorSelecionado.disciplina}}"  placeholder="Insira seu sobrenome">
-            </div>
-        </div>
-    </form>
-</div>
-
-<!--LISTA DE TODOS OS PROFESSORES-->
-<div *ngIf="!professorSelecionado">
-    <app-titulo [titulo] ='titulo'></app-titulo>
-    <table class="table table-hover">
-        <thead class="table-secondary">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Disciplina</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let prof of professores"
+    
+    <!--LISTA DE TODOS OS PROFESSORES-->
+    <div [ngClass]="{'col-sm-6': professorSelecionado, 'col-sm-12': !professorSelecionado}">
+        <app-titulo [titulo] ='titulo'></app-titulo>
+        <table class="table table-hover">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Disciplina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prof of professores"
                 style="cursor: pointer;"
                 (click) = "ProfessorSelect(prof)">
                 
-                <th scope="row">{{prof.id}}</th>
-                <td>{{prof.nome}}</td>
-                <td>{{prof.disciplina}}</td>
-            </tr>
-        </tbody>
-    </table>
+                    <th scope="row">{{prof.id}}</th>
+                    <td>{{prof.nome}}</td>
+                    <td>{{prof.disciplina}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
