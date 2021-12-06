@@ -7,16 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlunosComponent implements OnInit {
   public titulo = 'Alunos';
+  public alunoSelecionado: string;
 
   public alunos = [
-    {nome: 'Patrick'},
-    {nome: 'Guilherme'},
-    {nome: 'Silva'},
-    {nome: 'Roberta'},
-    {nome: 'Silva'}
+    {id: '1', nome: 'Patrick', sobrenome: 'Oliveira', telefone: '38665543'},
+    {id: '2', nome: 'Guilherme', sobrenome: 'Santos', telefone: '38665543'},
+    {id: '3', nome: 'Jeferson', sobrenome: 'Machado', telefone: '38665543'},
+    {id: '4', nome: 'Roberta', sobrenome: 'Nogueira', telefone: '38665543'},
+    {id: '5', nome: 'Robert', sobrenome: 'Gusmão', telefone: '38665543'}
   ]
 
-  constructor() { }
+  public AlunoSelect(aluno: any){
+    this.alunoSelecionado = aluno.nome;
+  }
+  public Voltar(){
+    this.alunoSelecionado = '';
+  }
+
+  constructor() {
+   }
 
   ngOnInit(): void {
   }
