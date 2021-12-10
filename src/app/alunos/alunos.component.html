@@ -1,57 +1,72 @@
-<!--ALUNO ESPECIFICO SELECIONADO-->
-<div *ngIf="alunoSelecionado">    
-    <div class="row">
-        <div class="mr-auto">
-            <app-titulo [titulo] ="'Aluno:' + alunoSelecionado.nome"></app-titulo>
+<div class="row">
+    <!--ALUNO ESPECIFICO SELECIONADO-->
+    <div class="col-sm-6" *ngIf="alunoSelecionado">    
+        <div class="row">
+            <div class="mr-auto">
+                <app-titulo [titulo] ="'Código:' + alunoSelecionado.id"></app-titulo>
+            </div>
+            <div class="mt-1">
+                <button class="btn btn-outline-danger" (click) = "Voltar()">
+                    Voltar
+                </button>
+            </div>
         </div>
-        <div class="mt-1">
-            <button class="btn btn-warning" (click) = "Voltar()">
-                Voltar
-            </button>
-        </div>
+        <!--FORMULARIO DE EDIÇÃO-->
+        <form [formGroup] = "alunoForm" (submit)='AlunoSubmit()'>
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Nome</label>
+                    <input type="text" formControlName="nome" class="form-control" placeholder="Insira seu nome">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Sobrenome</label>
+                    <input type="text" formControlName="sobrenome" class="form-control" placeholder="Insira seu sobrenome">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput2" class="form-label">Telefone</label>
+                    <input type="number" formControlName="telefone" class="form-control" placeholder="Insira seu telefone">
+                </div>
+            </div>
+            <div class="form-group">
+                <hr>
+                <button class="btn btn-success" [disabled]="!alunoForm.valid">
+                    Salvar
+                </button>
+            </div>
+        </form>
     </div>
-    <!--FORMULARIO DE EDIÇÃO-->
-    <form>
-        <div class="form-group">
-            <div class="mb-3">
-                <label for="formGroupExampleInput" class="form-label">Nome</label>
-                <input type="text" value="{{alunoSelecionado.nome}}" class="form-control" placeholder="Insira seu nome">
-            </div>
-            <div class="mb-3">
-                <label for="formGroupExampleInput2" class="form-label">Sobrenome</label>
-                <input type="text" value="{{alunoSelecionado.sobrenome}}" class="form-control" placeholder="Insira seu sobrenome">
-            </div>
-            <div class="mb-3">
-                <label for="formGroupExampleInput2" class="form-label">Telefone</label>
-                <input type="number" value="{{alunoSelecionado.telefone}}" class="form-control" placeholder="Insira seu telefone">
-            </div>
-        </div>
-    </form>
-</div>
-
-<!--LISTA DE TODOS OS ALUNOS-->
-<div *ngIf="!alunoSelecionado">
-    <app-titulo [titulo] ='titulo'></app-titulo>
-    <table class="table table-hover">
-        <thead class="table-secondary">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Sobrenome</th>
-                <th scope="col">Telefone</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let aln of alunos" 
+    
+    <!--LISTA DE TODOS OS ALUNOS-->
+    <div [ngClass] ="{'col-sm-6': alunoSelecionado, 'col-sm-12': !alunoSelecionado}">
+        <app-titulo [titulo] ='titulo'></app-titulo>
+        <table class="table table-hover">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Sobrenome</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aln of alunos" 
                 style="cursor: pointer;"
                 (click) = "AlunoSelect(aln)">
-    
+                
                 <th scope="row">{{aln.id}}</th>
                 <td>{{aln.nome}}</td>
                 <td>{{aln.sobrenome}}</td>
                 <td>{{aln.telefone}}</td>
+                <td>
+                    <div class="btn-goup container">
+                        <button class="btn btn-sm btn-success">Detalhes</button>
+                        <button class="btn btn-sm btn-primary">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>    
 </div>
-
+</div>
